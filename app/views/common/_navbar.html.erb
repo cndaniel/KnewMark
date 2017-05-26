@@ -12,6 +12,24 @@
                 <%= link_to("所有产品", knowledges_path) %>
               </li>
             </ul>
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        产品分类
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <% Category.grouped_data.each do |group| %>
+                          <li class="list-group-item"><a href="<%= categories_path %>"><%= group.first.title %></li></a>
+                          <% group.last.each do |sub_category| %>
+                            <li class="list-group-item"><a href="<%= category_path(sub_category) %>"><%= sub_category.title %></a></li>
+                          <% end -%>
+                        <% end -%>
+                      </li>
+                    </ul>
+                  </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
               <% unless logged_in? %>
                 <li><%= link_to("注册", new_user_path)%></li>
