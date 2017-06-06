@@ -10,13 +10,14 @@ class ApplicationController < ActionController::Base
 
   private
   def not_authenticated
-    redirect_to new_session_path, :alert => "请先登录"
+    respond_to do |format|
+      format.html { redirect_to new_session_path, :alert => "请先登录"}
+      format.js {
+        flash[:alert] = "请先登录"
+        render body: "window.location = '/sessions/new'"}
+    end
+
   end
 
-  def require_login
-    respond_to do |format|
-      format.html(super)
-      format.js { render text: "window.location = '/sessions/new'" }
-    end
-  end
+
 end
