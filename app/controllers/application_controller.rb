@@ -13,4 +13,10 @@ class ApplicationController < ActionController::Base
     redirect_to new_session_path, :alert => "请先登录"
   end
 
+  def require_login
+    respond_to do |format|
+      format.html(super)
+      format.js { render text: "window.location = '/sessions/new'" }
+    end
+  end
 end
